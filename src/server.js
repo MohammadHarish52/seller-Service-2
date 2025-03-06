@@ -9,10 +9,10 @@ const app = express();
 
 // CORS configuration allowing both local and production domains
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://fastandfab.in'],  // Allow both local and production domains
-  credentials: true,  // Allow cookies or authorization headers
-  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: ['http://localhost:3000', 'https://fastandfab.in'], 
+  credentials: true, 
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'], 
 }));
 
 // Middleware
