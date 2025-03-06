@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: seller-service
+    env: node
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    plan: free
+    branches: ["main"]
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        value: "Punnet1234"  # Put your JWT_SECRET here
+      - key: DATABASE_URL
+        value: "postgresql://neondb_owner:npg_IrQWd0PhvZ5i@ep-bitter-river-a8c8j6r3-pooler.eastus2.azure.neon.tech/neondb?sslmode=require"  # Database URL
+      - key: PORT
+        value: "5000"  # Ensure it matches your app's port
+    healthCheckPath: "/"
+    timeout: 10
+    waitUntilHealthy: true
