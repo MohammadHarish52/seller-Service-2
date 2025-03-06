@@ -9,7 +9,6 @@ const prisma = new PrismaClient();
 
 // Signup route
 router.post("/signup", async (req, res) => {
-  console.log("Received signup request:", req.body);
   try {
     const { phone, password } = req.body;
 
@@ -54,7 +53,6 @@ router.post("/signup", async (req, res) => {
 
 // Signin route
 router.post("/signin", async (req, res) => {
-  console.log("Received signin request:", req.body);
   try {
     const { phone, password } = req.body;
 
@@ -89,7 +87,7 @@ router.post("/signin", async (req, res) => {
 });
 
 // Update seller details route
-router.patch("/:sellerId/details", authMiddleware, async (req, res) => {
+router.post("/:sellerId/details", authMiddleware, async (req, res) => {
   try {
     const { sellerId } = req.params;
     const {
