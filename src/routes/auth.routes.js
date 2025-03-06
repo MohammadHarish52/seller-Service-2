@@ -9,6 +9,7 @@ const prisma = new PrismaClient();
 
 // Signup route
 router.post("/signup", async (req, res) => {
+  console.log("Received signup request:", req.body);
   try {
     const { phone, password } = req.body;
 
@@ -53,6 +54,7 @@ router.post("/signup", async (req, res) => {
 
 // Signin route
 router.post("/signin", async (req, res) => {
+  console.log("Received signin request:", req.body);
   try {
     const { phone, password } = req.body;
 
