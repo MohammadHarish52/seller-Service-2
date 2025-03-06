@@ -76,6 +76,61 @@ node src/server.js
   }
   ```
 
+### Product Management
+
+#### Create Product
+
+- **POST** `/api/products`
+- Headers:
+  - `Authorization: Bearer [token]`
+- Body:
+  ```json
+  {
+    "name": "Product Name",
+    "description": "Product Description",
+    "price": 99.99,
+    "stock": 100,
+    "images": ["image_url1", "image_url2"],
+    "category": "Electronics"
+  }
+  ```
+
+#### Get All Products
+
+- **GET** `/api/products`
+- Headers:
+  - `Authorization: Bearer [token]`
+
+#### Get Single Product
+
+- **GET** `/api/products/[productId]`
+- Headers:
+  - `Authorization: Bearer [token]`
+
+#### Update Product
+
+- **PUT** `/api/products/[productId]`
+- Headers:
+  - `Authorization: Bearer [token]`
+- Body:
+  ```json
+  {
+    "name": "Updated Product Name",
+    "description": "Updated Description",
+    "price": 129.99,
+    "stock": 50,
+    "images": ["image_url1", "image_url2"],
+    "category": "Electronics",
+    "isActive": true
+  }
+  ```
+
+#### Delete Product
+
+- **DELETE** `/api/products/[productId]`
+- Headers:
+  - `Authorization: Bearer [token]`
+
 ## Security
 
 - Passwords are hashed using bcrypt
