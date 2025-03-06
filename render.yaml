@@ -5,16 +5,15 @@ services:
     buildCommand: "npm install"
     startCommand: "npm start"
     plan: free
-    branches: ["main"]
+    branches: ["main"]  # Ensure that this is set to your main branch
     envVars:
       - key: NODE_ENV
         value: production
       - key: JWT_SECRET
-        value: "Punnet1234"  # Put your JWT_SECRET here
+        value: "Punnet1234"
       - key: DATABASE_URL
-        value: "postgresql://neondb_owner:npg_IrQWd0PhvZ5i@ep-bitter-river-a8c8j6r3-pooler.eastus2.azure.neon.tech/neondb?sslmode=require"  # Database URL
+        value: "postgresql://neondb_owner:npg_IrQWd0PhvZ5i@ep-bitter-river-a8c8j6r3-pooler.eastus2.azure.neon.tech/neondb?sslmode=require"
       - key: PORT
-        value: "5000"  # Ensure it matches your app's port
+        value: "5000"
     healthCheckPath: "/"
-    timeout: 10
-    waitUntilHealthy: true
+    maxShutdownDelaySeconds: 120  # Graceful shutdown period
