@@ -1,138 +1,90 @@
-# Seller Service Backend
+# Seller Service API
 
-A backend service for seller management using Prisma ORM and Express.js.
+This is the backend service for the seller functionality of the FastFab e-commerce platform.
 
-## Setup Instructions
+## Project Structure
 
-1. Install dependencies:
-
-```bash
-npm install
+```
+seller Service 2/
+├── src/
+│   ├── controllers/       # Business logic
+│   ├── middleware/        # Auth and validation middleware
+│   ├── routes/            # API route definitions
+│   │   ├── auth.routes.js     # Authentication routes
+│   │   ├── product.routes.js  # Product management routes
+│   │   └── public.routes.js   # Public-facing routes
+│   ├── server.js          # Main server entry point
+│   └── ...
+├── prisma/                # Database schema and migrations
+└── ...
 ```
 
-2. Configure environment variables:
+## Getting Started
 
-- Copy `.env.example` to `.env`
-- Update the `DATABASE_URL` with your PostgreSQL database credentials
-- Set a secure `JWT_SECRET`
+### Prerequisites
 
-3. Initialize the database:
+- Node.js (v14 or higher)
+- npm or yarn
+- PostgreSQL database
 
-```bash
-npx prisma migrate dev
-```
+### Installation
 
-4. Start the server:
+1. Clone the repository
+2. Install dependencies:
+   ```
+   cd seller\ Service\ 2
+   npm install
+   ```
+3. Set up environment variables:
+   Create a `.env` file in the root directory with the following variables:
 
-```bash
-node src/server.js
-```
+   ```
+   DATABASE_URL="postgresql://username:password@localhost:5432/fastfab"
+   JWT_SECRET="your-secret-key"
+   PORT=8000
+   ```
+
+4. Run database migrations:
+
+   ```
+   npx prisma migrate dev
+   ```
+
+5. Start the server:
+   ```
+   npm start
+   ```
 
 ## API Endpoints
 
 ### Authentication
 
-#### Signup
+- `POST /auth/signup` - Register a new seller
+- `POST /auth/signin` - Login with credentials
+- `GET /auth/profile` - Get seller profile (requires authentication)
 
-- **POST** `/api/signup`
-- Body:
-  ```json
-  {
-    "phone": "1234567890",
-    "password": "yourpassword"
-  }
-  ```
+### Products
 
-#### Signin
+- `POST /product` - Create a new product (requires authentication)
+- `GET /product` - Get all products for the authenticated seller
+- `GET /product/:productId` - Get a specific product
+- `PUT /product/:productId` - Update a product
+- `DELETE /product/:productId` - Delete a product
 
-- **POST** `/api/signin`
-- Body:
-  ```json
-  {
-    "phone": "1234567890",
-    "password": "yourpassword"
-  }
-  ```
+### Public Routes
 
-### Seller Details
+- `GET /products/active` - Get all active products
+- `GET /products/:productId` - Get a specific product by ID
+- `GET /products/category/:category` - Get products by category
 
-#### Update Seller Details
+## Running in Development
 
-- **POST** `/api/[sellerId]/details`
-- Headers:
-  - `Authorization: Bearer [token]`
-- Body:
-  ```json
-  {
-    "shopName": "My Shop",
-    "ownerName": "John Doe",
-    "address": "123 Main St",
-    "city": "Sample City",
-    "state": "Sample State",
-    "pincode": "123456",
-    "openTime": "09:00",
-    "closeTime": "18:00",
-    "categories": ["category1", "category2"]
-  }
-  ```
+```
+npm run dev
+```
 
-### Product Management
+This will start the server with nodemon for automatic reloading during development.
 
-#### Create Product
+## Important Note
 
-- **POST** `/api/products`
-- Headers:
-  - `Authorization: Bearer [token]`
-- Body:
-  ```json
-  {
-    "name": "Product Name",
-    "description": "Product Description",
-    "price": 99.99,
-    "stock": 100,
-    "images": ["image_url1", "image_url2"],
-    "category": "Electronics"
-  }
-  ```
-
-#### Get All Products
-
-- **GET** `/api/products`
-- Headers:
-  - `Authorization: Bearer [token]`
-
-#### Get Single Product
-
-- **GET** `/api/products/[productId]`
-- Headers:
-  - `Authorization: Bearer [token]`
-
-#### Update Product
-
-- **PUT** `/api/products/[productId]`
-- Headers:
-  - `Authorization: Bearer [token]`
-- Body:
-  ```json
-  {
-    "name": "Updated Product Name",
-    "description": "Updated Description",
-    "price": 129.99,
-    "stock": 50,
-    "images": ["image_url1", "image_url2"],
-    "category": "Electronics",
-    "isActive": true
-  }
-  ```
-
-#### Delete Product
-
-- **DELETE** `/api/products/[productId]`
-- Headers:
-  - `Authorization: Bearer [token]`
-
-## Security
-
-- Passwords are hashed using bcrypt
-- JWT authentication for protected routes
-- Input validation and error handling
+This project has been consolidated to use a single server entry point (`server.js`). The previous files `index.js` and `app.js` are no longer used and should be removed to avoid confusion.
